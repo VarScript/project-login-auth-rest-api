@@ -12,7 +12,13 @@ export declare class AuthService {
         firtsName: string;
         lastName: string;
     }>;
-    signin(): {
-        msg: string;
-    };
+    signin(dto: AuthDto): Promise<{
+        id: number;
+        createdAt: Date;
+        updatedAt: Date;
+        email: string;
+        hash: string;
+        firtsName: string;
+        lastName: string;
+    }>;
 }
