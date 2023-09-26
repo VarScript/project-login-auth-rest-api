@@ -5,7 +5,7 @@ import {
   ExtractJwt,
   Strategy,
 } from 'passport-jwt';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '/home/var/Documents/project-nest-api/src/prisma/prisma.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(
