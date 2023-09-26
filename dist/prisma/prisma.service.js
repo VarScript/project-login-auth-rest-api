@@ -26,6 +26,7 @@ let PrismaService = class PrismaService extends client_1.PrismaClient {
 };
 exports.PrismaService = PrismaService;
 exports.PrismaService = PrismaService = __decorate([
+    (0, common_1.Global)(),
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [config_1.ConfigService])
 ], PrismaService);
