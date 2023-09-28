@@ -4,7 +4,7 @@ import {
   IsString,
 } from 'class-validator';
 
-export class CreateBookmark {
+export class CreateBookmarkDto {
   @IsString()
   @IsNotEmpty()
   title: string;

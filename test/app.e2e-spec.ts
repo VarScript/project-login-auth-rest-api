@@ -9,6 +9,7 @@ import * as pactum from 'pactum';
 import { PrismaService } from '../src/prisma/prisma.service';
 import { AuthDto } from '../src/auth/dto/auth.dto';
 import { EditUserDto } from 'src/user/dto';
+import { CreateBookmarkDto } from 'src/bookmark/dto';
 describe('App e2e', () => {
   let app: INestApplication;
   let prisma: PrismaService;
@@ -144,17 +145,71 @@ describe('App e2e', () => {
           .expectStatus(200)
           .inspect()
           .expectBodyContains(dto.firtsName)
-          .expectBodyContains(dto.email)
+          .expectBodyContains(dto.email);
       });
     });
   });
 
   describe('Bookmark', () => {
-    describe('Create bookmark', () => {});
+    describe('Get empty bookmarks', () => {
+      it('should get empty bookmarks', () => {
+        return pactum
+          .spec()
+          .get('/bookmarks')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}',
+          })
+          .expectStatus(200)
+          .expectBody([]);
+      });
+    });
 
-    describe('Get bookmarks', () => {});
+    describe('Create bookmark', () => {
+      const dto: CreateBookmarkDto = {
+        title: 'Course nest',
+        description: 'It is a good course',
+        link: 'https://youtu.be/GHTA143_b-s',
+      };
+      it('Should create bookmark', () => {
+        return pactum
+          .spec()
+          .post('/bookmarks')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}',
+          })
+          .withBody(dto)
+          .expectStatus(201)
+          .stores('bookmarkId', 'id')
+      });
+    });
 
-    describe('Get bookmark by id', () => {});
+    describe('Get bookmarks', () => {
+      it('should get empty bookmarks', () => {
+        return pactum
+          .spec()
+          .get('/bookmarks')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}',
+          })
+          .expectStatus(200)
+          .expectJsonLength(1);
+      });
+    });
+
+    describe('Get bookmark by id', () => {
+      it('should get empty bookmark by id', () => {
+        return pactum
+          .spec()
+          .get('/bookmarks/{id}')
+          .withPathParams('id', '$S{bookmarkId}')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}',
+          })
+          .expectStatus(200)
+          .inspect()
+          .expectBodyContains('$S{bookmarkId}');
+      });
+    });
 
     describe('Edit bookmark by id', () => {});
 
