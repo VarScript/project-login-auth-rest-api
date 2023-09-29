@@ -12,7 +12,15 @@ export declare class BookmarkController {
         link: string;
         userId: number;
     }[]>;
-    getBookmarkById(userId: number, bookmarkId: number): void;
+    getBookmarkById(userId: number, bookmarkId: number): import(".prisma/client").Prisma.Prisma__BookmarkClient<{
+        id: number;
+        createdAt: Date;
+        updatedAt: Date;
+        title: string;
+        description: string;
+        link: string;
+        userId: number;
+    }, null, import("@prisma/client/runtime/library").DefaultArgs>;
     createBookmark(userId: number, dto: CreateBookmarkDto): Promise<{
         id: number;
         createdAt: Date;
@@ -22,6 +30,14 @@ export declare class BookmarkController {
         link: string;
         userId: number;
     }>;
-    editBookmarkById(userId: number, bookmarkId: number, dto: EditBookmark): void;
-    deleteBookmarkById(userId: number, bookmarkId: number): void;
+    editBookmarkById(userId: number, bookmarkId: number, dto: EditBookmark): Promise<{
+        id: number;
+        createdAt: Date;
+        updatedAt: Date;
+        title: string;
+        description: string;
+        link: string;
+        userId: number;
+    }>;
+    deleteBookmarkById(userId: number, bookmarkId: number): Promise<void>;
 }

@@ -23,7 +23,14 @@ let BookmarkService = class BookmarkService {
             },
         });
     }
-    getBookmarkById(userId, bookmarkId) { }
+    getBookmarkById(userId, bookmarkId) {
+        return this.prisma.bookmark.findFirst({
+            where: {
+                id: bookmarkId,
+                userId,
+            },
+        });
+    }
     async createBookmark(userId, dto) {
         const bookmark = await this.prisma.bookmark.create({
             data: {
@@ -33,8 +40,37 @@ let BookmarkService = class BookmarkService {
         });
         return bookmark;
     }
-    editBookmarkById(userId, bookmarkId, dto) { }
-    deleteBookmarkById(userId, bookmarkId) { }
+    async editBookmarkById(userId, bookmarkId, dto) {
+        const bookmark = await this.prisma.bookmark.findUnique({
+            where: {
+                id: bookmarkId,
+            },
+        });
+        if (!bookmark || bookmark.userId !== userId)
+            throw new common_1.ForbiddenException('Access to resourses denied');
+        return this.prisma.bookmark.update({
+            where: {
+                id: bookmarkId,
+            },
+            data: {
+                ...dto,
+            },
+        });
+    }
+    async deleteBookmarkById(userId, bookmarkId) {
+        const bookmark = await this.prisma.bookmark.findUnique({
+            where: {
+                id: bookmarkId,
+            },
+        });
+        if (!bookmark || bookmark.userId !== userId)
+            throw new common_1.ForbiddenException('The bookmark does not exist');
+        await this.prisma.bookmark.delete({
+            where: {
+                id: bookmarkId,
+            },
+        });
+    }
 };
 exports.BookmarkService = BookmarkService;
 exports.BookmarkService = BookmarkService = __decorate([

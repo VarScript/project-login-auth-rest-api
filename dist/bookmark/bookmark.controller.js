@@ -48,7 +48,7 @@ __decorate([
 ], BookmarkController.prototype, "getBookmarks", null);
 __decorate([
     (0, common_1.Get)(':id'),
-    __param(0, (0, decorator_1.GetUser)()),
+    __param(0, (0, decorator_1.GetUser)('id')),
     __param(1, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, Number]),
@@ -72,8 +72,9 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], BookmarkController.prototype, "editBookmarkById", null);
 __decorate([
+    (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
     (0, common_1.Delete)(':id'),
-    __param(0, (0, decorator_1.GetUser)()),
+    __param(0, (0, decorator_1.GetUser)('id')),
     __param(1, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, Number]),
