@@ -127,7 +127,7 @@ describe('App e2e', () => {
           .withHeaders({
             Authorization: 'Bearer $S{userAt}',
           })
-          .expectStatus(200)
+          .expectStatus(200);
       });
     });
 
@@ -240,7 +240,6 @@ describe('App e2e', () => {
           })
           .expectStatus(204);
       });
-
       it('Should get empty bookmark', () => {
         return pactum
           .spec()
